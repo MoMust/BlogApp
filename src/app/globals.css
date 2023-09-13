@@ -58,8 +58,15 @@ a{
         max-width: 640px;
     }
 }
+
 @media screen and (max-width: 640px) {
     .wrapper{
         max-width: 475px;
+    }
+}
+/* Testing PR */
+@media screen and (max-width: 540px) {
+    .wrapper{
+        max-width: 375px;
     }
 }
