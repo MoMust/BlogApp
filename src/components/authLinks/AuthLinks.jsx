@@ -1,6 +1,6 @@
 "use client"
 import React, {useState} from "react";
-import style from "./authLinks.module.css";
+import styles from "./authLinks.module.css";
 import Link from 'next/link';
 
 
@@ -11,24 +11,24 @@ const AuthLinks = () => {
   return (
     <>
       {status === "notauthenticated" ? (
-        <Link href="/login" className={style.link}>
+        <Link href="/login" className={styles.link}>
           Login
         </Link>
       ) : (
         <>
-          <Link href="/write" className={style.link}>
+          <Link href="/write" className={styles.link}>
             Write
           </Link>
-          <span className={style.link}>Logout</span>
+          <span className={styles.link}>Logout</span>
         </>
       )}
-      <div className={style.burger} onClick={() => setOpen(!open)}>
-        <div className={style.line}></div>
-        <div className={style.line}></div>
-        <div className={style.line}></div>
+      <div className={styles.burger} onClick={() => setOpen(!open)}>
+        <div className={styles.line}></div>
+        <div className={styles.line}></div>
+        <div className={styles.line}></div>
       </div>
       {open && (
-        <div className={style.responsiveMenu}>
+        <div className={styles.responsiveMenu}>
           <Link href="/" className="link">
             Homepage
           </Link>
@@ -43,7 +43,7 @@ const AuthLinks = () => {
           ) : (
             <>
               <Link href="/write">Write</Link>
-              <span className={style.link}>Logout</span>
+              <span className={styles.link}>Logout</span>
             </>
           )}
         </div>

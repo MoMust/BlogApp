@@ -1,6 +1,6 @@
 import CardList from "../components/cardList/cardList";
 import CategoryList from "../components/categoryList/categoryList";
-import Featured from "../components/featured/featured";
+import Featured from "../components/featured/Featured";
 import Footer from "../components/footer/Footer";
 import Menu from "../components/menu/menu";
 import Navbar from "../components/navbar/Navbar";
