@@ -20,7 +20,54 @@
 
 .links{
     display: flex;
+    align-items: center;
     gap: 10px;
     flex: 1;
     font-size: 20px;
+}
+
+
+
+/* Desktop */
+@media screen and (max-width: 1280px) {
+    .logo{
+        font-size: 32px;
+    }
+    .links{
+        font-size: 18px;
+        gap: 15px;
+    }
+}
+/* Tablet */
+@media screen and (max-width: 1024px) {
+    .social{
+        display: none;
+    }
+    .logo{
+        text-align: left;
+    }
+}
+/* Mobile */
+@media screen and (max-width: 768px) {
+    .logo{
+        font-size: 24px;
+
+    }
+    .links{
+        font-size: 15px;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 640px) {
+    .link{
+        display:none;
+    }
+    .links{
+        display: flex;
+        justify-content: flex-end;
+    }
+    /* .logo{
+        text-align: left;
+    } */
 }
