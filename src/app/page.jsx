@@ -1,5 +1,5 @@
 import CardList from "../components/cardList/cardList";
-import CategoryList from "../components/categoryList/categoryList";
+import CategoryList from "../components/categoryList/CategoryList";
 import Featured from "../components/featured/Featured";
 import Footer from "../components/footer/Footer";
 import Menu from "../components/menu/menu";
