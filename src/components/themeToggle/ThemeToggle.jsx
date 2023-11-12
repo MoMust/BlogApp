@@ -10,7 +10,6 @@ const ThemeToggle = () => {
 
   const {theme, toggle} = useContext(ThemeContext)
 
-  console.log('ThemeMode',theme)
   return (
     <div
       className={styles.container}
