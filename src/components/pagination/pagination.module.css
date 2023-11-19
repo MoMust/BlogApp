@@ -13,3 +13,9 @@
     cursor: pointer;
 
 }
+.button:disabled{
+
+    background-color: rgba(220, 20, 60, 0.497);
+    cursor: not-allowed;
+
+}
