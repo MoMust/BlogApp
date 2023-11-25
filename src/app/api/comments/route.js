@@ -3,8 +3,9 @@ import { NextResponse } from "next/server"
 // GET ALL COMMENTS OF A POST
 export const GET = async (req) => {
 
-    const {searchparams} = new URL(req.url);
-    const postSlug = searchparams.get("postSlug")
+    const {searchParams} = new URL(req.url);
+    const postSlug = searchParams.get("postSlug")
+    
     try{
         const comments = await prisma.comment.findMany({
             where: {
