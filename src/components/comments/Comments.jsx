@@ -8,7 +8,7 @@ import useSWR from 'swr'
 import { useSession } from 'next-auth/react';
 
 const fetcher = async (url) =>{
-  const resp = fetch(url)
+  const resp = await fetch(url)
 
   const data = await resp.json();
 
@@ -21,9 +21,10 @@ const fetcher = async (url) =>{
   return data;
 }
 const Comments = ({postSlug}) => {
-    const status = useSession();
+    const {status} = useSession();
 
     const {data, isLoading} = useSWR(`http://localhost:3000/api/comments?postSlug=${postSlug}`, fetcher)
+ 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Comments</h1>
