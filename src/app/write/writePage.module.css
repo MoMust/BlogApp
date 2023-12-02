@@ -11,6 +11,13 @@
     color: var(--textColor)
 }
 
+.select {
+    margin-bottom: 50px;
+    padding: 10px 20px;
+    margin-left: 50px;
+    width: max-content;
+}
+
 .input::placeholder{
     color: #b3b3b1
 }
@@ -46,10 +53,13 @@
 
 .addButton{
     border-color: #1a7917;
+    cursor: pointer;
 }
 
 .image{
-    color: gray;    
+    color: gray;
+    cursor: pointer;
+        
 }
 
 .textArea{

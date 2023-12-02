@@ -26,6 +26,7 @@ const WritePage = () => {
   const [media, setMedia] = useState("");
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
+  const [catSlug, setCatSlug] = useState("");
 
   useEffect(() =>{
     const upload = () =>{
@@ -86,7 +87,8 @@ const WritePage = () => {
         desc: value,
         img: media,
         slug: slugify(title),
-        catSlug: "travel",
+        // TODO: HANDLE CATSLUG PROPERLY
+        catSlug: catSlug || "style",
       }),
     });
     console.log(res)
@@ -100,6 +102,17 @@ const WritePage = () => {
         placeholder="Title"
         onChange={(e) => setTitle(e.target.value)}
       />
+      <select
+        className={styles.select}
+        onChange={(e) => setCatSlug(e.target.value)}
+      >
+        <option value="style">style</option>
+        <option value="fashion">fashion</option>
+        <option value="food">food</option>
+        <option value="culture">culture</option>
+        <option value="travel">travel</option>
+        <option value="coding">coding</option>
+      </select>
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
           <Image
@@ -158,7 +171,9 @@ const WritePage = () => {
           placeholder="Tell your story..."
         />
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>Publish</button>
+      <button className={styles.publish} onClick={handleSubmit}>
+        Publish
+      </button>
     </div>
   );
 };
