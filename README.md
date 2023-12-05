@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+TODO
+
+Create About-page
+Fix darkmode issue
+Show most popular posts under "Most popular"
+Show editors choice under "Editors pick"
+
 ## Getting Started
 
 First, run the development server:

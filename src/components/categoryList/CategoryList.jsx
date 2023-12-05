@@ -47,4 +47,3 @@ const CategoryList = async () => {
 };
 
 export default CategoryList;
-CategoryList;
