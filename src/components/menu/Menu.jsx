@@ -5,19 +5,37 @@ import Image from "next/image";
 import MenuPost from "../menuPost/menuPost";
 import MenuCategories from "../menuCategories/MenuCategories";
 
-const Menu = () => {
+const getData = async () => {
+  const resp = await fetch("http://localhost:3000/api/popular?popular=true", {
+    cache: "no-store",
+  });
+
+  if (!resp.ok) {
+    throw new Error("Failed");
+  }
+
+  return resp.json();
+};
+
+const Menu = async () => {
+
+  const data = await getData();
+
+  console.log('Menudata: ',data)
   return (
     <div className={Styles.container}>
       <h2 className={Styles.subtitle}>Whats hot now</h2>
       <h1 className={Styles.title}>Most popular</h1>
-      <MenuPost withImage={false}/>
+      {data.popularPosts?.map((item) =>(
+      <MenuPost post={item} key={item._id}/>
+      ))}
       <h2 className={Styles.subtitle}>Discover by topic</h2>
       <h1 className={Styles.title}>Categories</h1>
       <MenuCategories />
 
       <h2 className={Styles.subtitle}>Chosen by the editor</h2>
       <h1 className={Styles.title}>Editors pick</h1>
-      <MenuPost withImage={true}/>
+      {/* <MenuPost/> */}
     </div>
   );
 };

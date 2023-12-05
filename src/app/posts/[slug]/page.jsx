@@ -11,7 +11,7 @@ const getData = async (slug) => {
     {
       cache: "no-store",
     }
-  );
+  );  
 
   if (!resp.ok) {
     throw new Error("Failed");
