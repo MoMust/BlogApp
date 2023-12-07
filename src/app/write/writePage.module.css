@@ -77,4 +77,10 @@
     color: white;
     border-radius: 20px;
     cursor: pointer;
+    display: flex;
+    
+}
+
+.loader{
+    padding-left: 10px;
 }

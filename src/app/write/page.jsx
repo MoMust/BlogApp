@@ -13,6 +13,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
+import { NextResponse } from "next/server";
+import { TailSpin } from "react-loader-spinner";
 
 const storage = getStorage(app);
 
@@ -21,6 +23,7 @@ const WritePage = () => {
   const { status } = useSession;
   const router = useRouter;
 
+  const [spinner, setSpinner] = useState(false);
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [media, setMedia] = useState("");
@@ -65,7 +68,7 @@ const WritePage = () => {
   }, [file])
 
   if (status === "loading") {
-    return <div className={styles.loading}>Loding...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
   if (status === "authenticated") {
     router.push("/");
@@ -80,18 +83,33 @@ const WritePage = () => {
       .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async() =>{
-    const res = await fetch("/api/posts", {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        desc: value,
-        img: media,
-        slug: slugify(title),
-        // TODO: HANDLE CATSLUG PROPERLY
-        catSlug: catSlug || "style",
-      }),
-    });
-    console.log(res)
+    setSpinner(true);
+    try {
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          desc: value,
+          img: media,
+          slug: slugify(title),
+          catSlug: catSlug || "styles",
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      if (!res.ok) {
+      }
+    } catch (error) {
+      console.log(error);
+
+    } finally {
+      setSpinner(false);
+    }
+    
+    
   }
 
   return (
@@ -106,7 +124,7 @@ const WritePage = () => {
         className={styles.select}
         onChange={(e) => setCatSlug(e.target.value)}
       >
-        <option value="style">style</option>
+        <option value="styles">styles</option>
         <option value="fashion">fashion</option>
         <option value="food">food</option>
         <option value="culture">culture</option>
@@ -173,6 +191,11 @@ const WritePage = () => {
       </div>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish
+        {spinner && (
+          <span className={styles.loader}>
+            <TailSpin color="white" radius={"1px"} height={"20px"} width={"20px"}/>
+          </span>
+        )}
       </button>
     </div>
   );
