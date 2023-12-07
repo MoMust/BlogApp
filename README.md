@@ -4,6 +4,7 @@ TODO
 
 Create About-page
 Fix darkmode issue
+
 Redirect when 'Publish' is clicked' and show MESSAGE 
 Show editors choice under "Editors pick"
 
@@ -11,6 +12,7 @@ Show editors choice under "Editors pick"
 DONE
 Show most popular posts under "Most popular" - Done
 Added spinner to publish submit button
+
 
 ## Getting Started
 
