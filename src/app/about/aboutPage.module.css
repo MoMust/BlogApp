@@ -1,0 +1,49 @@
+/* AboutPage.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 500px;
+    text-align: center;
+    padding: 50px;
+}
+
+
+.item.centerd{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title {
+    text-align: start;
+    font-size: 64px;
+    margin-bottom: 100px;
+    max-width: 620px;
+}
+
+.highlight {
+    color: #0070f3;
+}
+
+.subtitle {
+    font-size: 24px;
+}
+
+.contentWrapper{
+    display: flex;
+    justify-content: end;
+}
+
+.content {
+    text-align: start;
+    max-width: 800px;
+    font-size: 40px;
+    margin-top: 30px;
+
+}
+
+.contentList{
+    display: flex;
+    flex-direction: column;
+    gap: 300px;
+}
