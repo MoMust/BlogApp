@@ -20,8 +20,7 @@ const getData = async () => {
 const Menu = async () => {
 
   const data = await getData();
-
-  console.log('Menudata: ',data)
+  
   return (
     <div className={Styles.container}>
       <h2 className={Styles.subtitle}>Whats hot now</h2>

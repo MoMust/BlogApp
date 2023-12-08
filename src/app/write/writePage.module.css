@@ -1,5 +1,5 @@
 .container{
-
+position: relative;
 }
 
 .input{
@@ -83,4 +83,12 @@
 
 .loader{
     padding-left: 10px;
+}
+
+.errorMessage{
+    position: absolute;
+    top: 1px;
+    color: rgb(179, 32, 32);
+    left: 50px;
+    font-size: 18px;
 }
