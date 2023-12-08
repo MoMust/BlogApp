@@ -2,9 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 TODO
 
+Handle validation of publishing posts
 Create About-page
 Fix darkmode issue
-
 Redirect when 'Publish' is clicked' and show MESSAGE 
 Show editors choice under "Editors pick"
 

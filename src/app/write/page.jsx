@@ -30,7 +30,8 @@ const WritePage = () => {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
-
+  const [errorTitle, setErrorTitle] = useState(false);
+  
   useEffect(() =>{
     const upload = () =>{
 
@@ -84,36 +85,40 @@ const WritePage = () => {
 
   const handleSubmit = async() =>{
     setSpinner(true);
-    try {
-      const res = await fetch("/api/posts", {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          desc: value,
-          img: media,
-          slug: slugify(title),
-          catSlug: catSlug || "styles",
-        }),
-      });
 
-      if (!res.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      if (!res.ok) {
-      }
-    } catch (error) {
-      console.log(error);
-
-    } finally {
-      setSpinner(false);
+    if (title === "" || value === "") {
+      setSpinner(false)
+      return setErrorTitle(true);
+    }else{
+      setErrorTitle(false)
     }
+      try {
+        const res = await fetch("/api/posts", {
+          method: "POST",
+          body: JSON.stringify({
+            title,
+            desc: value,
+            img: media,
+            slug: slugify(title),
+            catSlug: catSlug || "styles",
+          }),
+        });
+
+        if (!res.ok) {
+          throw new Error("Something went wrong");
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setSpinner(false);
+      }
     
     
   }
 
   return (
     <div className={styles.container}>
+      {errorTitle && <span className={styles.errorMessage}>Make sure title and textfield are not empty</span>}
       <input
         type="text"
         className={styles.input}
@@ -193,7 +198,12 @@ const WritePage = () => {
         Publish
         {spinner && (
           <span className={styles.loader}>
-            <TailSpin color="white" radius={"1px"} height={"20px"} width={"20px"}/>
+            <TailSpin
+              color="white"
+              radius={"1px"}
+              height={"20px"}
+              width={"20px"}
+            />
           </span>
         )}
       </button>
