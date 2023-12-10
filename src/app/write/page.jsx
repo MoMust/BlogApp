@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
@@ -18,7 +19,6 @@ import { TailSpin } from "react-loader-spinner";
 
 const storage = getStorage(app);
 
-
 const WritePage = () => {
   const { status } = useSession;
   const router = useRouter;
@@ -31,11 +31,11 @@ const WritePage = () => {
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
   const [errorTitle, setErrorTitle] = useState(false);
-  
-  useEffect(() =>{
-    const upload = () =>{
+  const [modal, setModal] = useState(false);
 
-      const fileName = new Date().getTime + file.name
+  useEffect(() => {
+    const upload = () => {
+      const fileName = new Date().getTime + file.name;
       const storageRef = ref(storage, fileName);
 
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -43,7 +43,8 @@ const WritePage = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
           switch (snapshot.state) {
             case "paused":
@@ -54,19 +55,16 @@ const WritePage = () => {
               break;
           }
         },
-        (error) => {
-        },
+        (error) => {},
         () => {
-          
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setMedia(downloadURL)
+            setMedia(downloadURL);
           });
         }
       );
-    }
+    };
     file && upload();
-    
-  }, [file])
+  }, [file]);
 
   if (status === "loading") {
     return <div className={styles.loading}>Loading...</div>;
@@ -83,42 +81,56 @@ const WritePage = () => {
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
 
-  const handleSubmit = async() =>{
+  const handleSubmit = async () => {
     setSpinner(true);
 
     if (title === "" || value === "") {
-      setSpinner(false)
+      setSpinner(false);
       return setErrorTitle(true);
-    }else{
-      setErrorTitle(false)
+    } else {
+      setErrorTitle(false);
     }
-      try {
-        const res = await fetch("/api/posts", {
-          method: "POST",
-          body: JSON.stringify({
-            title,
-            desc: value,
-            img: media,
-            slug: slugify(title),
-            catSlug: catSlug || "styles",
-          }),
-        });
+    try {
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          desc: value,
+          img: media,
+          slug: slugify(title),
+          catSlug: catSlug || "styles",
+        }),
+      });
 
-        if (!res.ok) {
-          throw new Error("Something went wrong");
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setSpinner(false);
+      if (!res.ok) {
+        throw new Error("Something went wrong");
       }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSpinner(false);
+      setModal(true);
+    }
+  };
+
+  const getTime = () =>{
+    const currentDate = new Date();
+    const currentHours = currentDate.getHours();
+    const currentMinutes = currentDate.getMinutes();
+    const fullDate = `${currentDate.toDateString()} - ${currentHours}:${currentMinutes}`;
+
+
     
-    
+    return fullDate
   }
 
   return (
     <div className={styles.container}>
-      {errorTitle && <span className={styles.errorMessage}>Make sure title and textfield are not empty</span>}
+      {errorTitle && (
+        <span className={styles.errorMessage}>
+          Make sure title and textfield are not empty
+        </span>
+      )}
       <input
         type="text"
         className={styles.input}
@@ -207,6 +219,35 @@ const WritePage = () => {
           </span>
         )}
       </button>
+      {modal && (
+        <div className={styles.modalContainer}>
+          <div className={styles.closeModal}>
+            <button
+              className={styles.closeButton}
+              onClick={() => {
+                setModal(false);
+              }}
+            >
+              <Image
+                src="/close.png"
+                alt=""
+                width={20}
+                height={20}
+                className={styles.image}
+              />
+            </button>
+          </div>
+          <h2
+            className={styles.modalHeader}
+          >{`Your new blog ${title} has been posted!`}</h2>
+          <span className={styles.modalDate}>{`Post Created: ${getTime()}`}</span>
+          <div className={styles.linkModalContainer}>
+            <Link href={`posts/${title}`} className={styles.linkModal}>
+              Visit you post here!
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
